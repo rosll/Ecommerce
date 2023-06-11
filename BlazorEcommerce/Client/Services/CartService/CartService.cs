@@ -25,6 +25,7 @@ namespace BlazorEcommerce.Client.Services.CartService
             cart.Add(cartItem);
 
             await _localStorage.SetItemAsync("cart", cart);
+            OnChange.Invoke();
         }
 
         public async Task<List<CartItem>> GetCartItems()
