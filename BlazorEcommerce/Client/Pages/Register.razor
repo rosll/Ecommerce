@@ -1,5 +1,7 @@
 ﻿@page "/register"
 @inject IAuthService AuthService
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>Register</PageTitle>
 
@@ -44,5 +46,16 @@
             messageCssClass = "text-success";
         else
             messageCssClass = "text-danger";
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/"); // Substitua "/outra-pagina" pelo URL da página para a qual deseja redirecionar o usuário logado.
+        }
     }
 }

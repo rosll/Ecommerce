@@ -51,4 +51,15 @@
             errorMessage = result.Message;
         }
     }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            NavigationManager.NavigateTo("/"); // Substitua "/outra-pagina" pelo URL da página para a qual deseja redirecionar o usuário logado.
+        }
+    }
 }
